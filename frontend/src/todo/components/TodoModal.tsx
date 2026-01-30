@@ -19,10 +19,16 @@ export function TodoModal({
   onClose,
   isEditing
 }: TodoModalProps) {
-  if (!isOpen) return null
 
   const modalRoot = document.getElementById('modal-root')
   if (!modalRoot) return null
+
+  if (!isOpen) {
+    modalRoot.classList.add('pointer-events-none')
+    return null
+  }
+
+  modalRoot.classList.remove('pointer-events-none')
 
   return createPortal(
     <div

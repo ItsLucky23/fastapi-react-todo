@@ -1,20 +1,25 @@
 import { useState } from 'react'
 import type { Todo, TodoFormData } from './types'
 import { useTodoState } from './functions/useTodoState'
+import { useFilterTodos } from './functions/useFilterTodos'
 import { DarkModeToggle } from './components/DarkModeToggle'
 import { TodoCard } from './components/TodoCard'
 import { TodoModal } from './components/TodoModal'
+import { SearchBar } from './components/SearchBar'
 
 export default function Home() {
   const { todos, addTodo, updateTodo, deleteTodo } = useTodoState()
 
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [editingTodoId, setEditingTodoId] = useState<string | null>(null)
+  const [searchQuery, setSearchQuery] = useState('')
   const [formData, setFormData] = useState<TodoFormData>({
     name: '',
     description: '',
     priority: 'medium'
   })
+
+  const filteredTodos = useFilterTodos(todos, { searchQuery })
 
   const openModal = (todo?: Todo) => {
     if (todo) {
@@ -65,7 +70,7 @@ export default function Home() {
       style={{ backgroundColor: 'var(--color-background)' }}
     >
       {/* Header */}
-      <header
+      <div
         className="border-b transition-colors duration-300 sticky top-0 z-10"
         style={{
           backgroundColor: 'var(--color-container)',
@@ -82,29 +87,15 @@ export default function Home() {
 
           <DarkModeToggle />
         </div>
-      </header>
+      </div>
 
-      {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Add Task Button */}
-        <button
-          onClick={() => openModal()}
-          className="mb-8 px-6 py-3 rounded-lg font-semibold transition-all duration-300 hover:scale-105 shadow-lg"
-          style={{
-            backgroundColor: 'var(--color-correct)',
-            color: 'white'
-          }}
-        >
-          <span className="flex items-center gap-2">
-            {/* Icon placeholder */}
-            <div className="w-5 h-5 flex items-center justify-center">+</div>
-            <span>Add Task</span>
-          </span>
-        </button>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-24">
 
-        {/* Todo Grid */}
+        <SearchBar value={searchQuery} onChange={setSearchQuery} />
+
+        {/* todos */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
-          {todos.map(todo => (
+          {filteredTodos.map(todo => (
             <TodoCard
               key={todo.id}
               todo={todo}
@@ -125,9 +116,20 @@ export default function Home() {
             <p className="text-xl">No tasks yet. Click "Add Task" to create one!</p>
           </div>
         )}
-      </main>
 
-      {/* Modal */}
+        {filteredTodos.length === 0 && todos.length > 0 && (
+          <div
+            className="text-center py-20 rounded-lg"
+            style={{
+              backgroundColor: 'var(--color-container)',
+              color: 'var(--color-muted)'
+            }}
+          >
+            <p className="text-xl">No tasks match your search.</p>
+          </div>
+        )}
+      </div>
+
       <TodoModal
         isOpen={isModalOpen}
         formData={formData}
@@ -136,6 +138,21 @@ export default function Home() {
         onClose={closeModal}
         isEditing={editingTodoId !== null}
       />
+
+      {/* Add Task Button */}
+      <button
+        onClick={() => openModal()}
+        className="fixed bottom-6 right-6 sm:bottom-8 sm:right-8 px-6 py-4 rounded-full font-semibold transition-all duration-300 hover:scale-110 shadow-2xl z-20"
+        style={{
+          backgroundColor: 'var(--color-correct)',
+          color: 'white'
+        }}
+      >
+        <span className="flex items-center gap-2">
+          <div className="w-6 h-6 flex items-center justify-center text-xl">+</div>
+          <span className="hidden sm:inline">Add Task</span>
+        </span>
+      </button>
     </div>
   )
 }
