@@ -1,3 +1,6 @@
+import { faSearch } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+
 interface SearchBarProps {
   value: string
   onChange: (value: string) => void
@@ -17,7 +20,7 @@ export function SearchBar({ value, onChange }: SearchBarProps) {
         <div
           className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 flex items-center justify-center text-muted"
         >
-          🔍
+          <FontAwesomeIcon icon={faSearch} />
         </div>
       </div>
     </div>

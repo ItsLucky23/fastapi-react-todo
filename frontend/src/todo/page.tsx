@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import type { Todo, TodoFormData } from './types'
 import { useTodoState } from './functions/useTodoState'
-import { useFilterTodos } from './functions/useFilterTodos'
+import { useFilterTodos, type CompletionFilter, type SortOption } from './functions/useFilterTodos'
 import { DarkModeToggle } from './components/DarkModeToggle'
 import { TodoCard } from './components/TodoCard'
 import { TodoModal } from './components/TodoModal'
 import { SearchBar } from './components/SearchBar'
+import { FilterControls } from './components/FilterControls'
 
 export default function Home() {
   const { todos, addTodo, updateTodo, deleteTodo } = useTodoState()
@@ -13,13 +14,19 @@ export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [editingTodoId, setEditingTodoId] = useState<string | null>(null)
   const [searchQuery, setSearchQuery] = useState('')
+  const [completionFilter, setCompletionFilter] = useState<CompletionFilter>('all')
+  const [sortBy, setSortBy] = useState<SortOption>('newest')
   const [formData, setFormData] = useState<TodoFormData>({
     name: '',
     description: '',
     priority: 'medium'
   })
 
-  const filteredTodos = useFilterTodos(todos, { searchQuery })
+  const filteredTodos = useFilterTodos(todos, {
+    searchQuery,
+    completionFilter,
+    sortBy
+  })
 
   const openModal = (todo?: Todo) => {
     if (todo) {
@@ -92,6 +99,13 @@ export default function Home() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-24">
 
         <SearchBar value={searchQuery} onChange={setSearchQuery} />
+
+        <FilterControls
+          completionFilter={completionFilter}
+          sortBy={sortBy}
+          onCompletionFilterChange={setCompletionFilter}
+          onSortChange={setSortBy}
+        />
 
         {/* todos */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
