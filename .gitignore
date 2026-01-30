@@ -1,0 +1,15 @@
+# python
+__pycache__/
+venv/
+*.py[cod]
+*.db
+
+# node + Frontend
+node_modules/
+dist/
+.env
+
+# code editor
+.vscode/
+.idea/
+EOF
