@@ -82,12 +82,7 @@ export function TodoModal({
             <textarea
               value={formData.description}
               onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-              className="w-full px-4 py-2 rounded-lg border transition-colors duration-300 focus:outline-none focus:ring-2 resize-none"
-              style={{
-                backgroundColor: 'var(--color-container2)',
-                borderColor: 'var(--color-container2-border)',
-                color: 'var(--color-title)'
-              }}
+              className="w-full px-4 py-2 rounded-lg border transition-colors duration-300 focus:outline-none focus:ring-2 resize-none bg-container2 border-container2-border text-title"
               placeholder="Enter task description"
               rows={4}
             />
@@ -95,8 +90,7 @@ export function TodoModal({
 
           <div>
             <label
-              className="block text-sm font-medium mb-2"
-              style={{ color: 'var(--color-common)' }}
+              className="block text-sm font-medium mb-2 text-common"
             >
               Priority Level
             </label>
@@ -127,26 +121,52 @@ export function TodoModal({
             </div>
           </div>
 
+          {isEditing && (
+            <div>
+              <label
+                className="block text-sm font-medium mb-2 text-common"
+              >
+                Task Status
+              </label>
+              <div className="flex gap-2">
+                <button
+                  type="button"
+                  onClick={() => setFormData({ ...formData, completed: true })}
+                  className={`
+                    w-full py-2 rounded-lg font-medium capitalize transition-all duration-300 
+                    ${formData.completed ? '' : 'opacity-40'}
+                    bg-container3 text-common
+                  `}
+                >
+                  Completed
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setFormData({ ...formData, completed: false })}
+                  className={`
+                    w-full py-2 rounded-lg font-medium capitalize transition-all duration-300 
+                    ${formData.completed ? 'opacity-40' : ''}
+                    bg-container3 text-common
+                  `}
+                >
+                  Not Completed
+                </button>
+              </div>
+            </div>
+          )}
+
           {/* submit / close */}
           <div className="flex gap-3 pt-4">
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 px-4 py-2 rounded-lg font-medium transition-colors duration-300"
-              style={{
-                backgroundColor: 'var(--color-container3)',
-                color: 'var(--color-common)'
-              }}
+              className="flex-1 px-4 py-2 rounded-lg font-medium transition-colors duration-300 bg-container3 text-common"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="flex-1 px-4 py-2 rounded-lg font-medium transition-all duration-300 hover:scale-105"
-              style={{
-                backgroundColor: 'var(--color-correct)',
-                color: 'white'
-              }}
+              className="flex-1 px-4 py-2 rounded-lg font-medium transition-all duration-300 hover:scale-105 bg-correct text-white"
             >
               {isEditing ? 'Update' : 'Create'}
             </button>

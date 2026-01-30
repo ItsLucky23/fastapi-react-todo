@@ -19,7 +19,8 @@ export default function Home() {
   const [formData, setFormData] = useState<TodoFormData>({
     name: '',
     description: '',
-    priority: 'medium'
+    priority: 'medium',
+    completed: false
   })
 
   const filteredTodos = useFilterTodos(todos, {
@@ -34,14 +35,16 @@ export default function Home() {
       setFormData({
         name: todo.name,
         description: todo.description,
-        priority: todo.priority
+        priority: todo.priority,
+        completed: todo.completed
       })
     } else {
       setEditingTodoId(null)
       setFormData({
         name: '',
         description: '',
-        priority: 'medium'
+        priority: 'medium',
+        completed: false
       })
     }
     setIsModalOpen(true)
@@ -53,7 +56,8 @@ export default function Home() {
     setFormData({
       name: '',
       description: '',
-      priority: 'medium'
+      priority: 'medium',
+      completed: false
     })
   }
 

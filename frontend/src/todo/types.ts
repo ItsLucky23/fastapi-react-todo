@@ -14,4 +14,5 @@ export interface TodoFormData {
   name: string
   description: string
   priority: Priority
+  completed: boolean
 }

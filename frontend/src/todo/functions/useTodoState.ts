@@ -29,7 +29,6 @@ export function useTodoState() {
       id: uuidv4(),
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
-      completed: false,
       ...formData
     }
     setTodos([...todos, newTodo])
