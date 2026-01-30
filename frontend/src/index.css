@@ -1,3 +1,104 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #EFF6FF;
+  /* blue-50 */
+
+  --color-container: #FFFFFF;
+  /* white */
+  --color-container-border: #E5E7EB;
+  /* gray-200 */
+  --color-container-hover: #F3F4F6;
+  /* gray-100 light hover */
+
+  --color-container2: #F8FAFC;
+  /* slate-50 */
+  --color-container2-border: #E2E8F0;
+  /* slate-200 */
+  --color-container2-hover: #F1F5F9;
+  /* light hover */
+
+  --color-container3: #E5E7EB;
+  /* gray-200 */
+  --color-container3-border: #CBD5E1;
+  /* gray-300 */
+  --color-container3-hover: #D1D5DB;
+  /* slightly darker */
+
+  --color-container4: #F1F5F9;
+  /* slate-100 */
+  --color-container4-border: #E2E8F0;
+  /* gray-200 */
+  --color-container4-hover: #E2E8F0;
+  /* slightly darker */
+
+  --color-title: #000000;
+  /* black */
+  --color-common: #1E293B;
+  /* slate-800 */
+  --color-muted: #64748B;
+  /* slate-500 */
+
+  /* Correct / wrong */
+  --color-correct: #22C55E;
+  /* green-500 */
+  --color-correct-hover: #16A34A;
+  /* green-600 */
+
+  --color-wrong: #EF4444;
+  /* red-500 */
+  --color-wrong-hover: #DC2626;
+  /* red-600 */
+}
+
+.dark {
+  --color-background: #111827;
+  /* gray-900 */
+
+  --color-container: #1F2937;
+  /* gray-800 */
+  --color-container-border: #374151;
+  /* gray-700 */
+  --color-container-hover: #3F4B63;
+  /* slightly lighter dark hover */
+
+  --color-container2: #374151;
+  /* gray-700 */
+  --color-container2-border: #4B5563;
+  /* gray-600 */
+  --color-container2-hover: #565E72;
+
+  --color-container3: #4B5563;
+  /* gray-600 */
+  --color-container3-border: #6B7280;
+  /* gray-500 */
+  --color-container3-hover: #272F41;
+
+  --color-container4: #1F2937;
+  /* gray-800 */
+  --color-container4-border: #374151;
+  /* gray-700 */
+  --color-container4-hover: #CBD5E1;
+
+  --color-title: #FFFFFF;
+  /* white */
+  --color-common: #E5E7EB;
+  /* gray-200 */
+  --color-muted: #9CA3AF;
+  /* gray-400 */
+
+  /* Correct / wrong */
+  --color-correct: #22C55E;
+  /* green-500, same in dark */
+  --color-correct-hover: #16A34A;
+  /* green-600 */
+
+  --color-wrong: #EF4444;
+  /* red-500 */
+  --color-wrong-hover: #DC2626;
+  /* red-600 */
+}
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -5,7 +106,7 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: white;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -13,56 +114,15 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
+html,
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  width: 100%;
+  height: 100%;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
+@layer utilities {
+  .h-safe {
+    height: calc(var(--vh, 1vh) * 100);
   }
 }
